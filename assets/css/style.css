@@ -4,3 +4,29 @@ button,
     input {
       margin: 10px;
     }
+
+
+    /* .center {
+      text-align: center;
+      margin-top: 5%;
+    }
+    
+    #gif-show ul{
+     display: block;
+     list-style-type: disc;
+     box-sizing: border-box;
+    }
+    
+    #gif-show li{
+     list-style: none;
+     display: inline-block;
+     vertical-align: top;
+     margin: 1%;
+     padding: 1%
+     width: 24%;
+    }
+    
+    #gif-show li img {
+      width: 375px;
+      height: 375px;
+    } */

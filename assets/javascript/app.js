@@ -1,94 +1,138 @@
-// Initial array of sports
+// Sports Array
 var sports = ["Football", "Basketball", "Baseball", "Hockey", "Soccer"];
 
+
 // Function for displaying sport data
-function renderButtons() {
+function sportDisplay() {
 
-  // Deleting the sport buttons prior to adding new sport buttons
-  // (this is necessary otherwise we will have repeat buttons)
-  $("#buttons-view").empty();
+  // Clear Info
+  // No repeat buttons)
+  $("#sportsView").empty();
 
-  // Looping through the array of sports
-  for (var i = 0; i < sports.length; i++) {
+  var sportx = $(this).attr("data-name");
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportx + "&api_key=VXJCZawhw5pLK0kGoLwR3f15XXtxdWu5&limit=10&offset=0&rating=G&lang=en";
 
-    // Then dynamicaly generating buttons for each sport in the array.
-    // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-    var a = $("<button>");
+ 
+   // Perfoming an AJAX GET request to queryURL
+   $.ajax({
+   url: queryURL,
+     method: "GET"
+   })
+
+  // After the data from the AJAX request comes back
+      .then(function(response) {
+       console.log(queryURL);
+       console.log(response);
       
-    // Adding a class
-    a.addClass("sport");
-    // Adding a data-attribute with a value of the sport at index i
-    a.attr("data-name", sports[i]);
-    // Providing the button's text with a value of the sport at index i
-    a.text(sports[i]);
-    // Adding the button to the HTML
-    $("#buttons-view").append(a);
-   }
- }
+      // Storing the data from the AJAX request in the results variable
+       var results = response.data;
+
+      // Looping through each result item
+       for (var i = 0; i < results.length; i++) {
+
+        // Creating and storing a div tag
+         var sportDiv = $("<div>");
+
+        // Creating a paragraph tag with the result item's rating
+         var p = $("<p>").text("Rating: " + results[i].rating);
+
+        // Creating and storing an image tag
+         var sportImage = $("<img>");
+        // Setting the src attribute of the image to a property pulled off the result item
+         sportImage.attr("src", results[i].images.fixed_height_still.url);
+         sportImage.attr("data-still", results[i].images.fixed_height_still.url);
+         sportImage.attr("data-animate", results[i].images.fixed_height.url);
+         sportImage.attr("data-state", "still");
+         sportImage.addClass("sportImage");
+
+        // Appending the paragraph and image tag to the sportDiv
+         sportDiv.append(sportImage)
+         sportDiv.append(p)
+
+      // Prependng the sportDiv to the HTML page in the "#images" div
+        $("#images").prepend(sportDiv);
+           
+       }
+     });
+    };
+    
+    $(document).on("click", ".sportImage", function(){
+        var state = $(this).attr('data-state'); 
+         
+      if (state == "still"){
+        $(this).attr("src", $(this).data("animate"));
+        $(this).attr("data-state", "animate");
+
+      }else{
+        $(this).attr("src", $(this).data("still"));
+        $(this).attr("data-state", "still");
+      }
+      });
+    
+      function renderButtons(){ 
+        // Deletes the sports prior to adding new sports - stops repeating buttons)
+        $("#buttonsView").empty();
+        // Loops through the array of sports
+        for (var i = 0; i < sports.length; i++){
+          // Generates buttons for each sport in the array
+          var a = $("<button>")
+          a.addClass("sport");
+          a.attr("data-name", sports[i]);
+          a.text(sports[i]);
+          $("#buttonsView").append(a);
+        }
+      }
 
 // This function handles events where one button is clicked
-$("#add-sport").on("click", function(event) {
-  // event.preventDefault() prevents the form from trying to submit itself.
-  // We're using a form so that the user can hit enter instead of clicking the button if they want
-  event.preventDefault();
-
-  // This line will grab the text from the input box
+$("#addSport").on("click", function(){
+  //Clear container and grab the input from the textbox
   var sport = $("#sport-input").val().trim();
   // The sport from the textbox is then added to our array
   sports.push(sport);
-
-  // calling renderButtons which handles the processing of our sport array
+  
+  // Buttons Array
   renderButtons();
-});
+  // Use "enter" instead of clicking on the
+  // button and it won't move to the next page
+  return false;
+})
 
-// Calling the renderButtons function at least once to display the initial list of sports
+// Generic function for displaying the sport info
+  $(document).on("click", ".sport", sportDisplay);
+
+// This calls the renderButtons() function
 renderButtons();
 
 
-// Event listener for our button
-$("#buttons-view").on("click", function() {
-// Grabbing and storing the data-name property value from the button
-  // sports = $(this).attr("data-name");
 
-  // Storing our giphy API URL for a sports image
-    //  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sports + "&api_key=VXJCZawhw5pLK0kGoLwR3f15XXtxdWu5";
 
-    // var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=VXJCZawhw5pLK0kGoLwR3f15XXtxdWu5";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
-     var queryURL = "https://api.giphy.com/v1/gifs/search?q=sports&api_key=VXJCZawhw5pLK0kGoLwR3f15XXtxdWu5";
-
-  // Perfoming an AJAX GET request to queryURL
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  })
-
-  // After the data from the AJAX request comes back
-    .then(function(response) {
-
-    // Saving the image_original_url property
-      // var imageUrl = response.data;
-
-       var imageUrl = response.data.image_original_url;
-
-      // Creating and storing an image tag
-      var sportImage = $("<img>");
-      // Creating a paragraph tag with the result item's rating
-      // var p = $("<p>").text("Rating: " + results[i].rating);
-
-      // Setting the Image src attribute to imageUrl
-      sportImage.attr("src", imageUrl);
-      sportImage.attr("alt", "sport image");
-
-      // Prepending the Image to the images div
-      $("#images").prepend(sportImage);
-      // $("#images").append(p);
 
 
 
-    })
-  });
 
+
+
+
+
+
+
+
+    
   
-
-//API Key: VXJCZawhw5pLK0kGoLwR3f15XXtxdWu5

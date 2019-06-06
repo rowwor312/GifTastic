@@ -31,12 +31,14 @@ function sportDisplay() {
 
         // Creating and storing a div tag
          var sportDiv = $("<div>");
-
+          sportDiv.attr("class", "wrapper");
+          
         // Creating a paragraph tag with the result item's rating
          var p = $("<p>").text("Rating: " + results[i].rating);
 
         // Creating and storing an image tag
          var sportImage = $("<img>");
+         
         // Setting the src attribute of the image to a property pulled off the result item
          sportImage.attr("src", results[i].images.fixed_height_still.url);
          sportImage.attr("data-still", results[i].images.fixed_height_still.url);

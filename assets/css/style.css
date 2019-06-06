@@ -1,9 +1,49 @@
-button,
-    div,
-    form,
-    input {
-      margin: 10px;
-    }
+ body {
+   font: 18px arial, sans-serif;
+   background: #eee;
+ }
 
+ form {
+   width: 25%;
+   float: right;
+   padding: 20px;
+ }
 
+ label {
+   display: block;
+   font-weight: 700;
+   margin-bottom: 10px;
+ }
+
+ button,
+  input[type="submit"]{
+   background: #75659a;
+   color: #ffffff;
+   border: 0;
+   border-radius: 5px;
+   padding: 5px 20px;
+   font-size: 18px;
+   margin: 0 10px 10px 0;
+   cursor: pointer;
+   box-shadow: 2px 2px 3px #bbb;
+   }
+
+   input[type="text"] {
+     width: 100%;
+     margin-bottom: 10px;
+     height: 30px;
+     font-size: 18px;
+   }
+
+  .center {
+    text-align: left;
+    margin-top: 2%;
     
+  }
+  .wrapper{
+    display: inline-block;
+    margin: 1%;
+    padding: 1%;
+    /* width: 375px; */
+    /* height: 375px; */
+   }

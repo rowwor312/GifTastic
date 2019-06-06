@@ -5,8 +5,7 @@ var sports = ["Football", "Basketball", "Baseball", "Hockey", "Soccer"];
 // Function for displaying sport data
 function sportDisplay() {
 
-  // Clear Info
-  // No repeat buttons)
+  // Clear Info / No repeat buttons)
   $("#sportsView").empty();
 
   var sportx = $(this).attr("data-name");
@@ -55,7 +54,7 @@ function sportDisplay() {
        }
      });
     };
-    
+    // Start/Stop Animation of Image
     $(document).on("click", ".sportImage", function(){
         var state = $(this).attr('data-state'); 
          
@@ -70,11 +69,11 @@ function sportDisplay() {
       });
     
       function renderButtons(){ 
-        // Deletes the sports prior to adding new sports - stops repeating buttons)
+        // Deletes the sports prior to adding new sports
         $("#buttonsView").empty();
         // Loops through the array of sports
         for (var i = 0; i < sports.length; i++){
-          // Generates buttons for each sport in the array
+         // Generates buttons for each sport in the array
           var a = $("<button>")
           a.addClass("sport");
           a.attr("data-name", sports[i]);
@@ -92,8 +91,7 @@ $("#addSport").on("click", function(){
   
   // Buttons Array
   renderButtons();
-  // Use "enter" instead of clicking on the
-  // button and it won't move to the next page
+  // Use "enter" instead of clicking on the button
   return false;
 })
 
